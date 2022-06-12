@@ -5,10 +5,10 @@ require("dotenv").config();
 
 import mongoose from "mongoose";
 
-const URI = `mongodb://db/sedaserAppGestionClient`;
+
 //conectamos a la base de datos
 mongoose
-  .connect(URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
