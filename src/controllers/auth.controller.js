@@ -33,7 +33,7 @@ export const signUp = async (req, res) => {
     });
     res.status(200).json({ token: token });
   } catch (err) {
-    res.json({ message:'ERROR DEL CATCH DEL SERVIDOR:'+err})
+    res.json({ message: "ERROR DEL CATCH DEL SERVIDOR:" + err });
   }
 };
 
@@ -41,33 +41,41 @@ export const signUp = async (req, res) => {
 //=======================================================================================================================
 //INICIAR SESION
 export const signin = async (req, res) => {
-  const userFound = await User.findOne({ email: req.body.email }).populate(
-    "roles"
-  );
-  if (!userFound) {
-    return res.status(400).json({ message: "Email incorrecto" });
+  try {
+    const userFound = await User.findOne({ email: req.body.email }).populate(
+      "roles"
+    );
+
+    console.log("USER FOUND", userFound);
+    if (!userFound) {
+      return res.status(400).json({ message: "Email incorrecto" });
+    }
+
+    const matchPassword = await User.comparePassword(
+      req.body.password,
+      userFound.password
+    );
+
+    if (!matchPassword) {
+      return res
+        .status(401)
+        .json({ token: null, message: "Contraseña incorrecta" });
+    }
+    const userToken = {
+      id: userFound._id,
+      username: userFound.username,
+      roles: userFound.roles[0].name,
+    };
+    const token = jwt.sign(userToken, config.SECRET, {
+      expiresIn: 86400,
+    });
+    console.log(userFound);
+
+    res.send({
+      userToken: userToken,
+      token: token,
+    });
+  } catch (err) {
+    console.log(err);
   }
-
-  const matchPassword = await User.comparePassword(
-    req.body.password,
-    userFound.password
-  );
-
-  if (!matchPassword) {
-    return res.status(401).json({ token: null, message: "Contraseña incorrecta" });
-  }
-  const userToken = {
-    id: userFound._id,
-    username: userFound.username,
-    roles: userFound.roles[0].name,
-  };
-  const token = jwt.sign(userToken, config.SECRET, {
-    expiresIn: 86400,
-  });
-  console.log(userFound);
-
-  res.send({
-    userToken: userToken,
-    token: token,
-  });
 };

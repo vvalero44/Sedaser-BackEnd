@@ -4,12 +4,9 @@ tambien establece el puerto, e importa toda la configuracion del servidor echa e
 de app
 */
 
+import app from "./app";
+import "./database";
 
-import app from './app';
-import './database';
+app.listen( process.env.PORT || 4000);
 
-app.listen(4000)
-
-
-
-console.log('Server listen on port', 4000)
+console.log("Server listen on port",process.env.PORT || 4000);

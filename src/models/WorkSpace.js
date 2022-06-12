@@ -10,11 +10,11 @@ const WorkSpaceSchema = new Schema(
       type: "String",
       required: true,
     },
-    time:{
+    time: {
       type: "String",
       required: true,
     },
-    technical:{
+    technical: {
       type: "String",
       required: true,
     },

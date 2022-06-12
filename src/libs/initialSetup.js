@@ -29,30 +29,39 @@ export const createNativeUsers = async () => {
     const count = await User.estimatedDocumentCount(); //=> Cuenta la cantidad de docmentos que se encuentran en la coleccion
 
     if (count > 0) return; //=> En el caso de que exista algun documento, No hace nada, en caso contrario, crea los 3 docuemntos de a bajo
+    const defaultRoleUser = await Role.find({ name: "user" });
+
+    const defaultRoleAdmin = await Role.find({ name: "admin" });
+
+    const defaultRoleModrator = await Role.find({ name: "moderator" });
 
     const values = await Promise.all([
       new User({
         username: "NativeUser",
         email: "NativeUser@gmail.com",
         password: await User.encryptPassword("NativeUser"),
-        roles: "62727ea2570fd369b2d499a0",
+        roles: defaultRoleUser[0]._id,
       }).save(),
       new User({
         username: "NativeAdmin",
         email: "NativeAdmin@gmail.com",
         password: await User.encryptPassword("NativeAdmin"),
-        roles: "62727ea2570fd369b2d499a2",
+        roles: defaultRoleAdmin[0]._id,
       }).save(),
       new User({
         username: "NativeModerator",
         email: "NativeModerator@gmail.com",
         password: await User.encryptPassword("NativeModerator"),
-        roles: "62727ea2570fd369b2d499a1",
+        roles: defaultRoleModrator[0]._id,
       }).save(),
     ]);
 
     console.log(values);
+    //
+    console.log("USER DEFAULT ROLE", defaultRoleUser[0]._id);
+    console.log("ADMIN DEFAULT ROLE", defaultRoleAdmin[0]._id);
+    console.log("MODERATOR DEFAULT ROLE", defaultRoleModrator[0]._id);
   } catch (err) {
-    console.error(err);
+    console.error("ERROR DEL CATCH", err);
   }
 };

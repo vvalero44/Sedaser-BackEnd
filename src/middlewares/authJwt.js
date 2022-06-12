@@ -37,7 +37,7 @@ export const isModerator = async (req, res, next) => {
   return res.status(403).json({ message: "Require moderator role" });
 };
 
-export const isAdmin = async(req, res, next) => {
+export const isAdmin = async (req, res, next) => {
   const user = await User.findById(req.userId);
   const roles = await Role.find({ _id: { $in: user.roles } });
   console.log(roles);
@@ -50,9 +50,7 @@ export const isAdmin = async(req, res, next) => {
   return res.status(403).json({ message: "Require Admin role" });
 };
 
-
-
-export const isUser = async(req, res, next) => {
+export const isUser = async (req, res, next) => {
   const user = await User.findById(req.userId);
   const roles = await Role.find({ _id: { $in: user.roles } });
   console.log(roles);

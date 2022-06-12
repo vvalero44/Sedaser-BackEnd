@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Role from "../models/Role";
 import WorkSpace from "../models/WorkSpace";
 //**************************************************************************************************************************//
 //-------------------------------------------------------LIST USERS and ADMINS----------------------------------------------//
@@ -6,7 +7,9 @@ import WorkSpace from "../models/WorkSpace";
 //LISTAR USUARIOS
 export const ListUsers = async (req, res) => {
   try {
-    const userClient = await User.find({ roles: "62727ea2570fd369b2d499a0" }); //ID DEL ROL USUARIO
+    const defaultRoleUser = await Role.find({ name: "user" });
+
+    const userClient = await User.find({ roles: defaultRoleUser[0]._id }); //ID DEL ROL USUARIO
     res.json(userClient);
   } catch (err) {
     res.status(500).json({ err: "Get List Users" });
@@ -15,7 +18,9 @@ export const ListUsers = async (req, res) => {
 //LISTAR ADMINISTRADORES
 export const ListAdmins = async (req, res) => {
   try {
-    const userClient = await User.find({ roles: "62727ea2570fd369b2d499a2" }); //ID DEL ROL ADMINISTRADOR
+    const defaultRoleAdmin = await Role.find({ name: "admin" });
+
+    const userClient = await User.find({ roles: defaultRoleAdmin[0]._id }); //ID DEL ROL ADMINISTRADOR
     res.json(userClient);
   } catch (err) {
     res.status(500).json({ err: "Get List Admins" });
@@ -34,20 +39,23 @@ export const ListModerators = async (req, res)=>{
 
 //POST----------------AGREGAR TAREAS AL USUARIO
 export const PostWorkUser = async (req, res) => {
-  try{const { startDay, endDay, description, comments, time, technical } = req.body;
+  try {
+    const { startDay, endDay, description, comments, time, technical } =
+      req.body;
 
-  const newWorkSpace = new WorkSpace({
-    startDay,
-    endDay,
-    description,
-    comments,
-    time,
-    technical,
-    user: req.params.id,
-  });
-  await newWorkSpace.save();
-  res.json(newWorkSpace);}catch(err){
-    res.status(500).json({error: "Save Work User"})
+    const newWorkSpace = new WorkSpace({
+      startDay,
+      endDay,
+      description,
+      comments,
+      time,
+      technical,
+      user: req.params.id,
+    });
+    await newWorkSpace.save();
+    res.json(newWorkSpace);
+  } catch (err) {
+    res.status(500).json({ error: "Save Work User" });
   }
 };
 
