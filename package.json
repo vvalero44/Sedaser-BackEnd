@@ -13,6 +13,7 @@
   "author": "victor valero",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime": "^7.18.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
