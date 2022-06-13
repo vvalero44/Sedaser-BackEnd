@@ -7,7 +7,6 @@ Aqui tenemos la configuracion princpial del servidor, y se establecen las rutas 
 import express from "express"; //=> Framework de express
 import morgan from "morgan"; //Midelware de express
 import pkg from "../package.json"; //=> Archivo de configuracion del proyecto, para obtener los datos
-import productsRoutes from "./routes/products.routes"; //=> Rutas de productos vendria a ser una sub ruta con metodos POST, DELETE, PUT y GET
 import authRoutes from "./routes/auth.routes"; //=> Rutas de autenticacion vendria a ser una sub ruta con metodos POST, DELETE, PUT y GET
 import { createRoles, createNativeUsers } from "./libs/initialSetup"; //=> Rutas de roles vendria a ser una sub ruta con metodos POST, DELETE, PUT y GET
 import usersRoutes from "./routes/user.routes"; //Ruta de usuarios vendria a ser una sub ruta con metodos POST, DELETE, PUT y GET
