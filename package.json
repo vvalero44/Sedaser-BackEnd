@@ -1,5 +1,5 @@
 {
-  "name": "Backend sedaser client gestor",
+  "name": "Backend Sedaser Client Gestor",
   "version": "1.0.0",
   "description": "Este es al backend de sedaser, con el objetivo de crear un sistema de control de pedidos e incidencias de la empresa hacia los clientes que contratan el servicio y asi esten al tanto de la incidencia y tener un seguimiento basico de sus servicios",
   "main": "index.js",

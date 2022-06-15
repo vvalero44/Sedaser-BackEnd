@@ -30,12 +30,14 @@ app.use(cors());
 //DESCRIPCION DEL SERVIDOR
 app.get("/", (req, res) => {
   //=> Aqui se imprime la informacion de package.json en la consola del cliente
-  res.json({
-    name: app.get("pkg").name,
-    author: app.get("pkg").author,
-    description: app.get("pkg").description,
-    version: app.get("pkg").version,
-  }).parse();
+  res.send(`
+    <h1>${app.get("pkg").name}</h1>
+    <p><strong>Autor: </strong>${app.get("pkg").author}</p>
+    <h3>Descripcion del Api</h3>
+    <p>${app.get("pkg").description}</p>
+    <h4>Version:</h4>
+    <p>${app.get("pkg").version}</p>
+  `);
 });
 
 //=============================================================
