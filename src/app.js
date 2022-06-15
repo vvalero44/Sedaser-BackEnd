@@ -31,12 +31,41 @@ app.use(cors());
 app.get("/", (req, res) => {
   //=> Aqui se imprime la informacion de package.json en la consola del cliente
   res.send(`
+    <style>
+      .description{
+        border: 1px solid;
+        border-radius: 10px;
+        margin: 20px;
+        padding: 20px;
+      }
+      .container{
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+      }
+      hr{
+        opacity: 0.2;
+      }
+    </style>
+    <div class="container">
+
     <h1>${app.get("pkg").name}</h1>
+
+    <div class="description">
     <p><strong>Autor: </strong>${app.get("pkg").author}</p>
+    <strong>Github</strong> vvalero44 <a href="https://github.com/vvalero44">Aqui...</a>
+    </div>
+
+    <hr/>
+    
+    <div class="description">
     <h3>Descripcion del Api</h3>
     <p>${app.get("pkg").description}</p>
     <h4>Version:</h4>
     <p>${app.get("pkg").version}</p>
+    </div>
+
+    </div>
   `);
 });
 
