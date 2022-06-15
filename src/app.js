@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
     author: app.get("pkg").author,
     description: app.get("pkg").description,
     version: app.get("pkg").version,
-  });
+  }).parse();
 });
 
 //=============================================================
